@@ -33,7 +33,7 @@ func targetExists(fullTarget string, print bool) (bool, error) {
 func backupToTarget(source, fullTarget string) error {
 	dest := strings.TrimPrefix(fullTarget, backupPrefix)
 	log.Println("Backing up from", source, "to", dest)
-	cmd := exec.Command("rclone", "copy", source, fullTarget, "-v")
+	cmd := exec.Command("rclone", "copy", source, fullTarget, "-v", "--local-no-check-updated")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if stdoutStderr != nil && len(stdoutStderr) > 0 {
 		log.Println("Backup output:", string(stdoutStderr))
